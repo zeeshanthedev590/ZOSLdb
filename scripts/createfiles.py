@@ -1,8 +1,14 @@
 import json
 import os
 
+# Get the directory of the current script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construct the path to the input JSON data
+db_data_file = os.path.join(script_dir, '..', 'db', 'dbdata.json')
+
 # Read the input JSON data
-with open('../db/dbdata.json', 'r') as input_file:
+with open(db_data_file, 'r') as input_file:
     input_data = json.load(input_file)
 
 # Loop through each group in the input data
@@ -10,8 +16,8 @@ for group_name, group_info in input_data.items():
     # Initialize an empty dictionary for the group
     group_data = []
 
-    # Write the group data to a separate JSON file (Use f-strings to create the filenames)
-    output_filename = f'../db/{group_name.lower()}.json'
+    # Construct the output filename
+    output_filename = os.path.join(script_dir, '..', 'db', f'{group_name.lower()}.json')
     
     # Only create the file if it doesn't already exist
     if not os.path.exists(output_filename):
@@ -21,3 +27,4 @@ for group_name, group_info in input_data.items():
         print(f'{group_name} data saved to {output_filename}')
     else:
         print(f'{output_filename} already exists, skipping.')
+
