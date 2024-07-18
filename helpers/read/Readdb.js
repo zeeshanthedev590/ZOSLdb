@@ -1,9 +1,10 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
 function readEntries(type) {
   try {
-    const filename = path.join(__dirname, `../db/${type.toLowerCase()}.json`);
+    // Update the path to point to the correct 'db' directory
+    const filename = path.join(__dirname, '../../db', `${type.toLowerCase()}.json`);
     const rawData = fs.readFileSync(filename);
     const jsonData = JSON.parse(rawData);
 
@@ -19,7 +20,5 @@ function readEntries(type) {
     return null;
   }
 }
-
-// const data = readEntries('your_type');
 
 module.exports = { readEntries };
